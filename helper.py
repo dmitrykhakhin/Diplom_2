@@ -1,5 +1,7 @@
 import random
 import string
+
+import allure
 import requests
 
 from data import Url
@@ -28,6 +30,7 @@ class Helper:
 
 class User:
     @staticmethod
+    @allure.step("Зарегистрировать нового пользователя")
     def register_new_user_and_return_response(payload):
         response = requests.post(Url.URL + Url.REGISTER_USER_HANDLE, data=payload)
         return response
@@ -40,6 +43,7 @@ class User:
         return response
 
     @staticmethod
+    @allure.step("Сделать авторизацию пользователя")
     def login_user_and_return_response(email, password):
         response = requests.post(Url.URL + Url.LOGIN_USER_HANDLE,
                                  data={"email": email, "password": password}
@@ -47,6 +51,7 @@ class User:
         return response
 
     @staticmethod
+    @allure.step("Изменить данные пользователя пользователя")
     def change_user_data_and_return_response(token, field_to_change, new_data):
         response = requests.patch(Url.URL + Url.AUTHORIZATION_USER_HANDLE,
                                   headers={'Authorization': token},
@@ -56,6 +61,7 @@ class User:
 
 class Order:
     @staticmethod
+    @allure.step("Создать заказ для авторизованного пользователя")
     def create_order_with_auth_and_return_response(token, ingredient_list):
         response = requests.post(Url.URL + Url.ORDERS_HANDLE,
                                  headers={'Authorization': token},
@@ -63,12 +69,14 @@ class Order:
         return response
 
     @staticmethod
+    @allure.step("Создать заказ без авторизации")
     def create_order_without_auth_and_return_response(ingredient_list):
         response = requests.post(Url.URL + Url.ORDERS_HANDLE,
                                  data={"ingredients": ingredient_list})
         return response
 
     @staticmethod
+    @allure.step("Получить список заказов")
     def get_orders(token):
         response = requests.get(Url.URL + Url.ORDERS_HANDLE,
                                 headers={'Authorization': token})

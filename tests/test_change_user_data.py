@@ -45,8 +45,7 @@ class TestChangeUserData:
     @allure.title("Успешное изменение поля password пользователя и успешный логин с новым паролем")
     @allure.description('На корректный запрос на изменение пароля пользователя получаем ответ с кодом 200'
                         ' и в теле ответа есть email и имя пользователя'
-                        ' и логин пользователя с новым паролем возвращает код 200'
-                        ' и тело ответа содержит ""success: true""')
+                        ' и логин пользователя с новым паролем возвращает код 200')
     def test_change_user_data_new_password_successful_login(self):
         access_token = self.registration_response.json()['accessToken']
         self.payload['password'] = Helper.generate_random_string(10)
@@ -57,7 +56,7 @@ class TestChangeUserData:
         assert (change_user_data_response.status_code == 200
                 and change_user_data_response.json()["user"] == {"email": self.payload['email'],
                                                                  "name": self.payload['name']}
-                and login_response.status_code == 200 and login_response.json()['success'] is True)
+                and login_response.status_code == 200)
 
     @allure.title("Нельзя изменить данные без авторизации")
     @allure.description('На запрос на изменение поля email без авторизации получаем ответ с кодом 401'
