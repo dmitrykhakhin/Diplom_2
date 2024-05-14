@@ -51,7 +51,7 @@ class User:
         return response
 
     @staticmethod
-    @allure.step("Изменить данные пользователя пользователя")
+    @allure.step("Изменить данные пользователя")
     def change_user_data_and_return_response(token, field_to_change, new_data):
         response = requests.patch(Url.URL + Url.AUTHORIZATION_USER_HANDLE,
                                   headers={'Authorization': token},
